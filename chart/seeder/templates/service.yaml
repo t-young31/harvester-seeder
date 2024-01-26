@@ -18,7 +18,7 @@ spec:
   selector:
     {{- include "seeder.selectorLabels" . | nindent 4 }}
 ---
-{{ if not .Values.embeddedMode -}}
+{{ if and .Values.endpoint.enabled not .Values.embeddedMode -}}
 apiVersion: v1
 kind: Service
 metadata:
