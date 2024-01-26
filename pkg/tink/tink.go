@@ -3,6 +3,7 @@ package tink
 import (
 	"bytes"
 	"fmt"
+	"os"
 	"strings"
 	"text/template"
 
@@ -36,7 +37,8 @@ func GenerateHWRequest(i *seederv1alpha1.Inventory, c *seederv1alpha1.Cluster, s
 		mode = "create"
 	}
 
-	if len(seederDeploymentService.Status.LoadBalancer.Ingress) == 0 {
+	ingressEnabled := os.Getenv("SEEDER_ENDPOINT_INGRESS_ENABLED") == "true"
+	if len(seederDeploymentService.Status.LoadBalancer.Ingress) == 0 && ingressEnabled {
 		return nil, fmt.Errorf("waiting for ingress to be populated on svc: %s", seederDeploymentService.Name)
 	}
 	bondOptions := make(map[string]string)

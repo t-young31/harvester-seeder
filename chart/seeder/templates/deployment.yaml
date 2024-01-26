@@ -40,6 +40,8 @@ spec:
           - name: SEEDER_EMBEDDED_MODE
             value: "true"
           {{ end -}}
+          - name: SEEDER_ENDPOINT_INGRESS_ENABLED
+            value: "{{ .Values.endpoint.enabled }}"
           - name: LEADER_ELECTION_NAMESPACE
             valueFrom:
               fieldRef:
