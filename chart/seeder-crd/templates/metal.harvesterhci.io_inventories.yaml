@@ -149,6 +149,7 @@ spec:
                                   secrets:
                                     description: Secrets are a map of algorithms to
                                       secrets used for signing.
+                                    type: object
                                 type: object
                               logNotificationsDisabled:
                                 description: LogNotificationsDisabled determines whether
