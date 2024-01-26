@@ -10,6 +10,13 @@ TARGETS := $(shell ls scripts)
 $(TARGETS): .dapper
 	./.dapper $@
 
+build:
+	docker buildx build \
+		--platform linux/amd64 \
+		-t ghcr.io/t-young31/harvester-seeder:dev \
+		-f package/Dockerfile.tmp \
+		.
+
 .DEFAULT_GOAL := ci
 
 .PHONY: $(TARGETS)
