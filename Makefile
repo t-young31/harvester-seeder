@@ -11,10 +11,9 @@ $(TARGETS): .dapper
 	./.dapper $@
 
 build:
-	docker buildx build \
-		--platform linux/amd64 \
+	docker build \
 		-t ghcr.io/t-young31/harvester-seeder:dev \
-		-f package/Dockerfile.tmp \
+		-f package/Dockerfile \
 		.
 
 .DEFAULT_GOAL := ci

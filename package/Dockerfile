@@ -10,8 +10,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 # -------------------------------------------
 FROM registry.suse.com/bci/bci-base:15.4
 COPY --from=base /app/bin/manager /bin/manager
-RUN zypper -n install libfreeipmi17
-RUN zypper -n install ipmitool libfreeipmi17=1.5* && zypper clean
+RUN zypper -n install ipmitool && zypper clean
 
 WORKDIR /
 USER 65532:65532
