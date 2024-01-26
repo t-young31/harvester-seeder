@@ -42,6 +42,10 @@ spec:
           {{ end -}}
           - name: SEEDER_ENDPOINT_INGRESS_ENABLED
             value: "{{ .Values.endpoint.enabled }}"
+          {{ if not .Values.endpoint.enabled }}
+          - name: SEEDER_ENDPOINT_INGRESS_IP
+            value: "{{ .Values.endpoint.ip }}"
+          {{ end -}}
           - name: LEADER_ELECTION_NAMESPACE
             valueFrom:
               fieldRef:

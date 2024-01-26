@@ -15,6 +15,8 @@ fullnameOverride: ""
 
 endpoint:
   enabled: true
+  # IP is required if not deploying the endpoint LB
+  # ip: a.b.c.d
 
 serviceAccount:
   # Specifies whether a service account should be created

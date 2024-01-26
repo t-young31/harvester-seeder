@@ -41,13 +41,23 @@ func GenerateHWRequest(i *seederv1alpha1.Inventory, c *seederv1alpha1.Cluster, s
 	if len(seederDeploymentService.Status.LoadBalancer.Ingress) == 0 && ingressEnabled {
 		return nil, fmt.Errorf("waiting for ingress to be populated on svc: %s", seederDeploymentService.Name)
 	}
+	var ingressIP string
+	if ingressEnabled {
+		ingressIP = seederDeploymentService.Status.LoadBalancer.Ingress[0].IP
+	} else {
+		ingressIP = os.Getenv("SEEDER_ENDPOINT_INGRESS_IP")
+	}
+	if ingressIP == "" {
+		panic("Ingress IP was unset")
+	}
+
 	bondOptions := make(map[string]string)
 	if c.Spec.BondOptions == nil {
 		bondOptions["mode"] = "balance-tlb"
 		bondOptions["miimon"] = "100"
 	}
 	m, err := generateCloudConfig(c.Spec.ConfigURL, i.Spec.ManagementInterfaceMacAddress, mode, c.Status.ClusterAddress,
-		c.Status.ClusterToken, i.Status.GeneratedPassword, i.Status.Address, i.Status.Netmask, i.Status.Gateway, c.Spec.ClusterConfig.Nameservers, c.Spec.ClusterConfig.SSHKeys, bondOptions, c.Spec.ImageURL, c.Spec.HarvesterVersion, seederDeploymentService.Status.LoadBalancer.Ingress[0].IP, i.Name, i.Namespace)
+		c.Status.ClusterToken, i.Status.GeneratedPassword, i.Status.Address, i.Status.Netmask, i.Status.Gateway, c.Spec.ClusterConfig.Nameservers, c.Spec.ClusterConfig.SSHKeys, bondOptions, c.Spec.ImageURL, c.Spec.HarvesterVersion, ingressIP, i.Name, i.Namespace)
 
 	if err != nil {
 		return nil, fmt.Errorf("error during HW generation: %v", err)
