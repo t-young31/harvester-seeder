@@ -11,7 +11,8 @@ $(TARGETS): .dapper
 	./.dapper $@
 
 build:
-	docker build \
+	docker buildx build \
+		--platform linux/amd64 \
 		-t ghcr.io/t-young31/harvester-seeder:dev \
 		-f package/Dockerfile \
 		.
