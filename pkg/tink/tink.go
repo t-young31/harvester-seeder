@@ -154,7 +154,7 @@ func generateCloudConfig(configURL, hwAddress, mode, vip, token, password, ip, s
 	hc.SchemeVersion = 1
 	hc.Token = token
 	if mode == "join" {
-		hc.ServerURL = fmt.Sprintf("https://%s:443/", vip)
+		hc.ServerURL = fmt.Sprintf("https://%s:443", vip)
 	} else {
 		hc.Install.Vip = vip
 		hc.Install.VipMode = "static"
