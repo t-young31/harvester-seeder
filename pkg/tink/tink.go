@@ -87,6 +87,7 @@ func GenerateHWRequest(i *seederv1alpha1.Inventory, c *seederv1alpha1.Cluster, s
 							Netmask: i.Status.Netmask,
 							Gateway: i.Status.Gateway,
 						},
+						NameServers: c.Spec.ClusterConfig.Nameservers,
 					},
 				},
 			},

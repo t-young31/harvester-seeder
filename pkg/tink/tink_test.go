@@ -176,11 +176,14 @@ var (
 )
 
 func Test_GenerateHWRequest(t *testing.T) {
+	t.Setenv("SEEDER_ENDPOINT_INGRESS_IP", "127.0.0.1")
 	assert := require.New(t)
 	util.CreateOrUpdateCondition(i, seederv1alpha1.HarvesterCreateNode, "")
 	hw, err := GenerateHWRequest(i, c, svc, hegelSvc)
 	assert.NoError(err, "expected no error during hardware generation")
 	assert.NotNil(hw.Spec.UserData, "expected user data to be set")
+	assert.Len(hw.Spec.Interfaces, 1)
+	assert.Len(hw.Spec.Interfaces[0].DHCP.NameServers, 2)
 }
 
 func Test_GenerateWorkflow(t *testing.T) {
@@ -277,6 +280,7 @@ func Test_generateIPXEScript(t *testing.T) {
 }
 
 func Test_GenerateHardwareRequestV11(t *testing.T) {
+	t.Setenv("SEEDER_ENDPOINT_INGRESS_IP", "127.0.0.1")
 	assert := require.New(t)
 	cObj := c.DeepCopy()
 	cObj.Spec.HarvesterVersion = "v1.1.2"
