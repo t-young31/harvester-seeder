@@ -23,7 +23,7 @@ const (
 	defaultFacilityCode = "on_prem"
 	defaultDistro       = "harvester"
 	defaultISOURL       = "https://releases.rancher.com/harvester/"
-	v11Prefix           = "v1.1"
+	v11Prefix           = "v1"
 	defaultEvent        = "SUCCEEDED"
 	defaultMethod       = "PUT"
 )
