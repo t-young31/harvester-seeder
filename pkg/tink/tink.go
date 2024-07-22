@@ -169,7 +169,10 @@ func generateCloudConfig(configURL, hwAddress, mode, vip, token, password, ip, s
 		DefaultRoute: true,
 		Interfaces: []config.NetworkInterface{
 			{
+				Name:   "ens1f0np0",
 				HwAddr: hwAddress,
+			}, {
+				Name: "ens1f1np1",
 			},
 		},
 	}
